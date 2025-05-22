@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ajakan Jadi Pacar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    font-family: 'Poppins', sans-serif;
+    color: #4a153b;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    user-select: none;
+  }
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7);
+  }
+  .buttons {
+    display: flex;
+    gap: 1.5rem;
+  }
+  button {
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 2rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    outline:none;
+  }
+  button#iya {
+    background: #4a153b;
+    color: white;
+  }
+  button#iya:hover {
+    background: #6e1e5e;
+    transform: scale(1.1);
+  }
+  button#tidak {
+    background: #f72c62;
+    color: white;
+    position: relative;
+  }
+</style>
+</head>
+<body>
+  <h1>mau kamu menjadi pacar kau?</h1>
+  <div class="buttons">
+    <button id="iya">Iya</button>
+    <button id="tidak">Tidak</button>
+  </div>
+
+<script>
+  const tidakBtn = document.getElementById('tidak');
+  const container = document.body;
+  // container size
+  const containerWidth = window.innerWidth;
+  const containerHeight = window.innerHeight;
+
+  // Max move limits for button
+  const btnWidth = tidakBtn.offsetWidth;
+  const btnHeight = tidakBtn.offsetHeight;
+
+  // On mouse move over or near the "tidak" button, it moves away randomly inside viewport
+
+  tidakBtn.addEventListener('mouseenter', () => moveButton());
+  // Also move if mouse moves over the button area
+  tidakBtn.addEventListener('mousemove', () => moveButton());
+
+  function moveButton(){
+    // Random coordinates within viewport minus button size & some padding
+    const padding = 20;
+    let newX = Math.floor(Math.random() * (containerWidth - btnWidth - padding*2)) + padding;
+    let newY = Math.floor(Math.random() * (containerHeight - btnHeight - padding*2)) + padding;
+    tidakBtn.style.position = 'absolute';
+    tidakBtn.style.left = newX + 'px';
+    tidakBtn.style.top = newY + 'px';
+  }
+
+  // "Iya" button click response
+  document.getElementById('iya').addEventListener('click', () => {
+    alert('Terima kasih sudah mau jadi pacarku! ❤️');
+  });
+
+  // Initially position the "tidak" button normally
+  // We'll put "tidak" button next to button "iya" initially center horizontally under the text
+  function centerButtonsInitially() {
+    const buttonsDiv = document.querySelector('.buttons');
+    const rect = buttonsDiv.getBoundingClientRect();
+    const iyaBtn = document.getElementById('iya');
+    const iyaRect = iyaBtn.getBoundingClientRect();
+
+    // Position bukan absolut until move
+    tidakBtn.style.position = 'static';
+  }
+  centerButtonsInitially();
+
+  // On window resize update container size
+  window.addEventListener('resize', () => {
+    location.reload(); // reload page to reset positions for simplicity
+  });
+</script>
+</body>
+</html>
